@@ -1,0 +1,67 @@
+name:                optics-exercises
+version:             0.1.0.0
+github:              "shterrett/optics-exercises"
+license:             BSD3
+author:              "Stuart H Terrett"
+maintainer:          "shterrett@gmail.com"
+copyright:           "2019 Stuart H Terrett"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Exercises from _Optics by Example_
+# category:            Course
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/githubuser/optics-exercises#readme>
+
+default-extensions:
+  - TemplateHaskell
+  - FlexibleInstances
+  - FlexibleContexts
+  - RankNTypes
+  - ScopedTypeVariables
+  - TypeApplications
+  - TypeFamilies
+  - TupleSections
+  - BlockArguments
+
+dependencies:
+  - base >= 4.7 && < 5
+  - aeson
+  - containers
+  - lens
+  - lens-aeson
+  - mtl
+  - text
+
+library:
+  source-dirs: src
+
+executables:
+  optics-exercises-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -Wall
+    dependencies:
+    - optics-exercises
+
+tests:
+  optics-exercises-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - -Wall
+    dependencies:
+    - optics-exercises
