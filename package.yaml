@@ -29,6 +29,7 @@ default-extensions:
   - TypeFamilies
   - TupleSections
   - BlockArguments
+  - LambdaCase
 
 dependencies:
   - base >= 4.7 && < 5
