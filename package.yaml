@@ -30,6 +30,7 @@ default-extensions:
   - TupleSections
   - BlockArguments
   - LambdaCase
+  - OverloadedStrings
 
 dependencies:
   - base >= 4.7 && < 5
