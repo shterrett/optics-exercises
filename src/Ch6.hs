@@ -3,7 +3,6 @@ module Ch6 where
 import Control.Lens
 import Data.Ord (comparing)
 import Data.Monoid (Sum(..))
-import Data.Maybe (maybe)
 
 p1i :: [String]
 p1i = ["umbrella", "olives", "racecar", "hammer"]
@@ -51,11 +50,11 @@ p5o = Just "there"
 p5 :: Maybe String
 p5 = maximumByOf (folding words) (comparing vowels) p5i
   where vowels = foldMap (\case
-                            'a' -> Sum 1
-                            'e' -> Sum 1
-                            'i' -> Sum 1
-                            'o' -> Sum 1
-                            'u' -> Sum 1
+                            'a' -> Sum (1 :: Int)
+                            'e' -> Sum (1 :: Int)
+                            'i' -> Sum (1 :: Int)
+                            'o' -> Sum (1 :: Int)
+                            'u' -> Sum (1 :: Int)
                             _ -> mempty
                          )
 

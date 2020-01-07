@@ -50,4 +50,10 @@ predicate = lens getter setter
         setter _ b = Predicate b
 
 wizardName :: Bool
-wizardName = view (_2 . _1 . _2) ("Ginerva", (("Galileo", "Waldo"), "Malfoy")) == "Waldo"
+wizardName = view (_2 . _1 . _2) ("Ginerva" :: String
+                                 , ( ( "Galileo" :: String
+                                     , "Waldo" :: String
+                                     )
+                                   , "Malfoy" :: String
+                                   )
+                                 ) == "Waldo"
