@@ -9,7 +9,7 @@ data User =
 makeLenses ''User
 
 data Account =
-    Account { _id :: String
+    Account { _accountId :: String
             , _user :: User
             } deriving Show
 makeLenses ''Account
@@ -53,8 +53,8 @@ amountT f (Withdrawal amt) = Withdrawal <$> f amt
 amountT f (Deposit amt) = Deposit <$> f amt
 
 --      (a -> f b) -> (a, a) -> f (b, b)
-both :: Traversal (a, a) (b, b) a b
-both f (a1, a2) = (,) <$> f a1 <*> f a2
+both' :: Traversal (a, a) (b, b) a b
+both' f (a1, a2) = (,) <$> f a1 <*> f a2
 
 --                  (Int -> f Int) -> Transaction -> f Transaction
 transactionDelta :: Traversal' Transaction Int
@@ -66,7 +66,7 @@ left :: Traversal (Either a b) (Either a' b) a a'
 left _ (Right b) = pure (Right b)
 left f (Left a) = Left <$> f a
 
-beside :: Traversal s t a b -- (a -> f b) -> s -> f t
-       -> Traversal s' t' a b -- (a -> f b) -> s' -> f t'
-       -> Traversal (s,s') (t,t') a b -- (a -> f b) -> (s, s') -> f (t, t')
-beside tr tr' f (s, s') = (,) <$> (traverseOf tr f s) <*> (traverseOf tr' f s')
+beside' :: Traversal s t a b -- (a -> f b) -> s -> f t
+        -> Traversal s' t' a b -- (a -> f b) -> s' -> f t'
+        -> Traversal (s,s') (t,t') a b -- (a -> f b) -> (s, s') -> f (t, t')
+beside' tr tr' f (s, s') = (,) <$> (traverseOf tr f s) <*> (traverseOf tr' f s')
