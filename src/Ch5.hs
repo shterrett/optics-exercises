@@ -61,6 +61,13 @@ pathA =
     & army . knights .~ 42
     & gate . open .~ False
 
+pathAHard :: Kingdom
+pathAHard =
+  duloc
+    & name <>~ ": a perfect place"
+    & army . knights +~ 28
+    & gate . open &&~ False
+
 goalB :: Kingdom
 goalB = Kingdom
   { _name = "Dulocinstein"
@@ -79,6 +86,14 @@ pathB :: Kingdom
 pathB =
     duloc
       & name .~ "Dulocinstein"
+      & army . archers -~ 5
+      & army . knights +~ 12
+      & gate . oilTemp *~ 10
+
+pathBHard :: Kingdom
+pathBHard =
+    duloc
+      & name <>~ "instein"
       & army . archers -~ 5
       & army . knights +~ 12
       & gate . oilTemp *~ 10
@@ -106,6 +121,13 @@ pathC =
       & gate . oilTemp .~ 5.0
       & name <>~ ": Home"
       & name <<.~ "Duloc: Home of the talking Donkeys"
+
+pathCHard :: (String, Kingdom)
+pathCHard =
+    duloc
+      & gate . oilTemp -~ 5
+      & name <>~ ": Home"
+      & name <<<>~ " of the talking Donkeys"
 
 undefined1 :: (Bool, String)
 undefined1 = ((False, "opossums") & _1 ||~ True)
