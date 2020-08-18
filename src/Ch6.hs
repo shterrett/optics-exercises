@@ -1,6 +1,7 @@
 module Ch6 where
 
 import Control.Lens
+import Control.Monad (guard)
 import Data.Ord (comparing)
 import Data.Monoid (Sum(..))
 
@@ -153,8 +154,9 @@ deck =
 
 -- List all the cards whose name starts with 'S'.
 startingWithS :: [Card]
-startingWithS = deck ^.. folded
-                       . filtered (\n -> firstOf (name . folded) n == Just 'S')
+startingWithS = deck ^.. folded . filteredBy (name . _head . only 'S')
+-- startingWithS = deck ^.. folded
+--                        . filtered (\n -> firstOf (name . folded) n == Just 'S')
 
 -- What’s the lowest attack power of all moves?
 lowestAttack :: Maybe Move
@@ -191,7 +193,17 @@ holoWet =
 
 -- What’s the sum of all attack power for all moves belonging to non-Leafy cards?
 nonLeafyAttackPower :: Int
-nonLeafyAttackPower =
-    sumOf
-      (folded . filtered (\c -> c ^. aura /= Leafy) . moves . folded . movePower)
-      deck
+nonLeafyAttackPower = sumOf (folded
+                            . filteredBy (aura . anyBut Leafy)
+                            . moves
+                            . folded
+                            . movePower
+                            )
+                            deck
+-- nonLeafyAttackPower =
+--     sumOf
+--       (folded . filtered (\c -> c ^. aura /= Leafy) . moves . folded . movePower)
+--       deck
+
+anyBut :: (Eq a) => a -> Prism' a ()
+anyBut a = prism' (\() -> a) $ guard . (a /=)
